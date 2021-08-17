@@ -49,7 +49,7 @@
 									<label for="password-field" class="form-label" >Password</label>
 									<input type="password" name="password"  class="form-control"	
 												 id="password-field" placeholder="password here" required />
-									<!--<div th:each="e : ${#fields.errors('password')}" th:text="${e}" class="invalid-feedback" ></div>-->												 		
+									<div th:each="e : ${#fields.errors('password')}" th:text="${e}" class="invalid-feedback" ></div>											 		
 								</div>
 						
 						<!-- user about fields -->

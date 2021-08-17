@@ -1,10 +1,12 @@
 package com.smart.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,9 +43,16 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/register/", method = RequestMethod.POST)
-	public String register(@ModelAttribute("user") User user, 
-			@RequestParam(value="agreement", defaultValue = "false" ) boolean agreement, Model model, HttpSession session) throws Exception {
+	public String register(@Valid @ModelAttribute("user") User user,  BindingResult result,
+			@RequestParam(value="agreement", defaultValue = "false" ) boolean agreement, Model model, 
+			HttpSession session) throws Exception {
 		try {
+			
+			if(result.hasErrors()) {
+				System.out.println("Error : "+result);
+				return "signup";
+			}
+			
 		if(!agreement) {
 			System.out.println("you have not agreed terms and Condition ...");
 			throw new Exception("you have not accept terms and Condition.");

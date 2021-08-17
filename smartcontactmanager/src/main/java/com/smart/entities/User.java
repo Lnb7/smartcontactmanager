@@ -11,6 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 public class User {
@@ -18,14 +21,23 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long uId;
+	
+	@NotBlank(message = "Name should not be Empty")
+	@Size(min = 4, max = 20, message = "Please enter more than 4 char")
 	private String name;
+	
 	@Column(unique = true)
+	@Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "invalid email address")
 	private String email;
+	
+	@Size(min = 6, message = "password must be minimum 6 character")
 	private String password;
 	private String role;
 	private boolean enabled;
 	private String imageUrl;
+	
 	@Column(length = 300)
+	@NotBlank(message = "about field must not be blank")
 	private String about;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
