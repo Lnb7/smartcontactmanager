@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.smart.dao.UserRepository;
+import com.smart.entities.User;
 
 @Controller
 public class HomeController {
@@ -23,5 +24,12 @@ public class HomeController {
 	public String about(Model model) {
 		model.addAttribute("title", "About : Smart contact Manager");
 		return "about";
+	}
+	
+	@GetMapping("/signup")
+	public String signup(Model model) {
+		model.addAttribute("title","Register : Smart contact manager");
+		model.addAttribute("user", new User());
+		return "signup";
 	}
 }
