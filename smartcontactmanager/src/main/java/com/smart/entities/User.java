@@ -21,6 +21,7 @@ public class User {
 	private String name;
 	@Column(unique = true)
 	private String email;
+	private String password;
 	private String role;
 	private boolean enabled;
 	private String imageUrl;
@@ -96,6 +97,21 @@ public class User {
 
 	public void setContacts(List<Contact> contacts) {
 		this.contacts = contacts;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "User [uId=" + uId + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
+				+ ", enabled=" + enabled + ", imageUrl=" + imageUrl + ", about=" + about + ", contacts=" + contacts
+				+ "]";
 	}
 	
 	

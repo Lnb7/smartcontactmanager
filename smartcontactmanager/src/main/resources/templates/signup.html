@@ -10,6 +10,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
+			
+				<!-- alert message if error/success -->
+				<div th:if="${session.message}"  th:classappend="${session.message.type}" class="alert text-center">
+					<p th:text="${session.message.content}"></p>				
+					<th:block th:text="${#session.removeAttribute('message')}"> </th:block>
+				</div>
+						
 				<div class="container text-center">
 								<img th:src="@{/img/kyc.png}" src="" alt="profile" style="width: 100px;" />
 				</div>
@@ -57,7 +64,7 @@
 						<!-- terms and conditions agreement -->
 								<div  class="form-group form-check text-center">
 									<input type="checkbox" class="form-check-input" name="agreement" />
-									<label for="agreement" style="color: black;">Accept terms and condition</label>
+									<label for="agreement">Accept terms and condition</label>
 						</div>
 						
 						<div class="container text-center">
