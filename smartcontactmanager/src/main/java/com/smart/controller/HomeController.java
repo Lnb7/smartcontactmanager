@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,15 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.smart.dao.UserRepository;
 import com.smart.entities.User;
 import com.smart.helper.Message;
+import com.smart.repository.UserRepository;
 
 @Controller
 public class HomeController {
 
 	@Autowired
-	private UserRepository userRepository;
+	UserRepository userRepository;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+	
 	
 	@GetMapping(value={"/", "/home"})
 	public String home(Model model) {
@@ -59,6 +64,7 @@ public class HomeController {
 		}
 		
 		System.out.println("agreement : "+agreement);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setImageUrl("profile.jpg");
 		user.setEnabled(true);
 		user.setRole("ROLE_USER");
@@ -80,5 +86,11 @@ public class HomeController {
 			return "signup";
 		}
 		return "signup";
+	}
+	
+	@GetMapping("/signin")
+	public String login(Model model) {
+		model.addAttribute("title", "Login : Smart contact Manager");
+		return "login";
 	}
 }
